@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted" data-testid="planet-name">
+      {{ planet.name }}
+    </h6>
+
+    <div class="row">
+      <div class="col-sm-2" data-testid="population-label">Population:</div>
+      <div class="col-sm-10" data-testid="population-data">
+        {{ planet.population }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2" data-testid="climate-label">Climate:</div>
+      <div class="col-sm-10" data-testid="climate-data">
+        {{ planet.climate }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2" data-testid="gravity-label">Gravity:</div>
+      <div class="col-sm-10" data-testid="gravity-data">
+        {{ planet.gravity }}
+      </div>
+    </div>
+  </div>
+</div>

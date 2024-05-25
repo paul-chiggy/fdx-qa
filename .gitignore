@@ -1,0 +1,7 @@
+.angular
+.DS_Store
+cypress/downloads
+cypress/reports
+cypress/videos
+dist
+node_modules
