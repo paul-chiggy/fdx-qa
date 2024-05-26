@@ -13,15 +13,17 @@ describe("Star Wars Search", () => {
   describe("People search functionality", () => {
     describe("Positive test-cases", () => {
       it("should display a search result upon a valid query", () => {
+        const query = "luke skywalker";
         // WHEN users search for a person with a valid query
-        searchPage.searchFor(searchPage.searchType.PEOPLE, "anakin");
+        searchPage.searchFor(searchPage.searchType.PEOPLE, query);
         // THEN users should see a valid search result
         searchPage.verifyValidQuery(searchPage.searchType.PEOPLE, true);
       });
 
       it("should display multiple search results upon a valid query", () => {
+        const query = "dArTh";
         // WHEN users search for a person with a valid query
-        searchPage.searchFor(searchPage.searchType.PEOPLE, "dArTh");
+        searchPage.searchFor(searchPage.searchType.PEOPLE, query);
         // THEN users should see valid search results
         searchPage.verifyValidQuery(searchPage.searchType.PEOPLE, false);
       });
@@ -29,8 +31,9 @@ describe("Star Wars Search", () => {
 
     describe("Negative test-cases", () => {
       it("should display Not Found upon an invalid query", () => {
-        // WHEN users searches for a person with a valid query
-        searchPage.searchFor(searchPage.searchType.PEOPLE, "HOTH");
+        const query = "HOTH";
+        // WHEN users search for a person with a valid query
+        searchPage.searchFor(searchPage.searchType.PEOPLE, query);
         // THEN users should see a valid search result
         searchPage.verifyInvalidQuery();
       });
@@ -40,15 +43,17 @@ describe("Star Wars Search", () => {
   describe("Planet search functionality", () => {
     describe("Positive test-cases", () => {
       it("should display a search result upon a valid query", () => {
-        // WHEN users searches for a planet with a valid query
-        searchPage.searchFor(searchPage.searchType.PLANETS, "HOTH");
+        const query = "HOTH";
+        // WHEN users search for a planet with a valid query
+        searchPage.searchFor(searchPage.searchType.PLANETS, query);
         // THEN users should see a valid search result
         searchPage.verifyValidQuery(searchPage.searchType.PLANETS, true);
       });
 
       it("should display multiple search results upon a valid query", () => {
+        const query = "a";
         // WHEN users search for a planet with a valid query
-        searchPage.searchFor(searchPage.searchType.PLANETS, "a");
+        searchPage.searchFor(searchPage.searchType.PLANETS, query);
         // THEN users should see valid search results
         searchPage.verifyValidQuery(searchPage.searchType.PLANETS, false);
       });
@@ -56,8 +61,9 @@ describe("Star Wars Search", () => {
 
     describe("Negative test-cases", () => {
       it("should display Not Found upon an invalid query", () => {
-        // WHEN users searches for a planet with an invalid query
-        searchPage.searchFor(searchPage.searchType.PLANETS, "anakin");
+        const query = "anakin";
+        // WHEN users search for a planet with an invalid query
+        searchPage.searchFor(searchPage.searchType.PLANETS, query);
         // THEN users should see Not Found in search results
         searchPage.verifyInvalidQuery();
       });
@@ -73,14 +79,14 @@ describe("Star Wars Search", () => {
     });
 
     it("should clear search results by clearing input and submitting search", () => {
-      // WHEN users get search results
-      // AND clear previous query
+      const query = "anakin";
+      // WHEN users clear previous query
       // AND submit a form
-      searchPage.searchFor(searchPage.searchType.PEOPLE, "anakin");
+      searchPage.searchFor(searchPage.searchType.PEOPLE, query);
       searchPage.verifyValidQuery(searchPage.searchType.PEOPLE, true);
       cy.findByTestId(searchPage.queryInput).clear();
       cy.findByTestId(searchPage.submitButton).click();
-      // THEN search results should be cleared and empty result displayed
+      // THEN previous search results should be cleared and "empty" result displayed
       cy.findByTestId(searchPage.personResult).should("not.exist");
     });
 

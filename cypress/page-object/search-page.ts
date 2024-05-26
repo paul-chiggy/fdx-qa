@@ -12,6 +12,9 @@ export class SearchPage implements BasePage {
   resultNotFound = "result-not-found";
   personResult = "person-result";
   planetResult = "planet-result";
+  personName = "character-name";
+  planetName = "planet-name";
+
   searchType = {
     PEOPLE: "people",
     PLANETS: "planets",
@@ -44,27 +47,37 @@ export class SearchPage implements BasePage {
 
   verifyValidQuery(entity: string, isSingle: boolean) {
     if (isSingle) {
-      if (entity === this.searchType.PEOPLE) {
-        cy.findAllByTestId(this.personResult).should("have.length", 1);
-      } else {
-        cy.findAllByTestId(this.planetResult).should("have.length", 1);
-      }
+      this.verifySingleResult(entity);
     } else {
-      if (entity === this.searchType.PEOPLE) {
-        cy.findAllByTestId(this.personResult).should(
-          "have.length.greaterThan",
-          1
-        );
-      } else {
-        cy.findAllByTestId(this.planetResult).should(
-          "have.length.greaterThan",
-          1
-        );
-      }
+      this.verifyMultipleResults(entity);
     }
   }
 
-  verifyInvalidQuery() {
+  verifySingleResult(entity: string): void {
+    if (entity === this.searchType.PEOPLE) {
+      cy.findAllByTestId(this.personResult).should("have.length", 1);
+    } else {
+      cy.findAllByTestId(this.planetResult).should("have.length", 1);
+    }
+    // TODO: do more data assertions here based on query
+  }
+
+  verifyMultipleResults(entity: string): void {
+    if (entity === this.searchType.PEOPLE) {
+      cy.findAllByTestId(this.personResult).should(
+        "have.length.greaterThan",
+        1
+      );
+    } else {
+      cy.findAllByTestId(this.planetResult).should(
+        "have.length.greaterThan",
+        1
+      );
+    }
+    // TODO: do more data assertions here based on query
+  }
+
+  verifyInvalidQuery(): void {
     cy.findByTestId(this.resultNotFound)
       .should("be.visible")
       .should("have.text", " Not found. ");

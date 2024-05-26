@@ -3,7 +3,7 @@ import { defineConfig } from "cypress";
 // eslint-disable-next-line no-restricted-exports, import/no-unused-modules
 export default defineConfig({
   chromeWebSecurity: false,
-  defaultCommandTimeout: 5000,
+  defaultCommandTimeout: 3000,
   e2e: {
     baseUrl: "https://fdx.qa.coach",
     excludeSpecPattern: [],
@@ -15,8 +15,14 @@ export default defineConfig({
   env: {
     BASE_URL: "https://fdx.qa.coach",
   },
-  pageLoadTimeout: 5000,
+  pageLoadTimeout: 3000,
+  reporter: "mochawesome",
   reporterOptions: {
+    charts: true,
+    json: true,
+    reportDir: "./cypress/reports",
+    reportFilename: "test-report",
+    overwrite: true,
     toConsole: true,
   },
   retries: {
